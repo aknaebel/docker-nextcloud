@@ -4,12 +4,18 @@
 
 This docker image provide a [nextcloud](https://nextcloud.com/) service based on [Alpine Linux edge](https://hub.docker.com/_/alpine/) using php7-fpm
 
+## Tags:
+
+- latest: Lastest stable version (11.0)
+- 11.0 : latest 11.0.x version (stable)
+- 10.0 : latest 10.0.x version (old stable)
+
 ## Usage:
 ```
 docker run --name nextcloud -d -p 9000:9000 \
--v /nextcloud/data:/var/www/nextcloud/data \
--v /nextcloud/config:/var/www/nextcloud/config \
--v /nextcloud/apps:/var/www/nextcloud/apps \
+-v /nextcloud/data:/data \
+-v /nextcloud/config:/config \
+-v /nextcloud/apps2:/apps2 \
 -e UPLOAD_MAX_SIZE=10G \
 -e APC_SHM_SIZE=128M \
 -e OPCACHE_MEM_SIZE=128 \
@@ -25,9 +31,9 @@ services:
         ports:
             - "9000:9000"
         volumes:
-            - /nextcloud/data:/var/www/nextcloud/data
-            - /nextcloud/config:/var/www/nextcloud/config
-            - /nextcloud/apps:/var/www/nextcloud/apps
+            - /nextcloud/data:/data
+            - /nextcloud/config:/config
+            - /nextcloud/apps2:/apps
         environment:
             - UPLOAD_MAX_SIZE=10G
             - APC_SHM_SIZE=128M
