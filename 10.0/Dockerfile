@@ -39,26 +39,18 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
  && apk del ${BUILD_DEPS} php7-pear php7-dev \
  && rm -rf /var/cache/apk/* /tmp/*
 
-# && cd /nextcloud/apps \
-# && wget http://repository.rainloop.net/v2/other/owncloud/rainloop.zip \
-# && unzip rainloop.zip \
-# && chmod -R 755 rainloop \
-# && rm rainloop.zip \
-
 COPY ./php-fpm.conf /etc/php7/php-fpm.conf
 COPY ./opcache.ini /etc/php7/conf.d/00_opcache.ini
 COPY ./apcu.ini /etc/php7/conf.d/apcu.ini
 
-COPY ./supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
+COPY ./supervisord.conf /etc/supervisor/supervisord.conf
 
 VOLUME /nextcloud
 VOLUME /data
 VOLUME /config
 VOLUME /apps2
 
-COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-COPY ./supervisord.conf /etc/supervisor/supervisord.conf
 EXPOSE 9000
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
