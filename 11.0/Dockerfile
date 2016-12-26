@@ -26,6 +26,9 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
  && sed -i "$ s|\-n||g" /usr/bin/pecl && pecl install smbclient\
  && echo "extension=smbclient.so" > /etc/php7/conf.d/00_smbclient.ini \
 
+ && echo "date.timezone = 'UTC'" >> /etc/php7/php.ini \
+ && echo "short_open_tag = 0" >> /etc/php7/php.ini \
+
  && addgroup -g 82 -S www-data \
  && adduser -u 82 -D -S -G www-data www-data \
  && echo "*/15  *  *  *  * php7 -f /var/www/nextcloud/cron.php" > /etc/crontabs/www-data \
