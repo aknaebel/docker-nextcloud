@@ -5,6 +5,9 @@ ENV NEXTCLOUD_VERSION=10.0.3
 ENV UPLOAD_MAX_SIZE=10G
 ENV APC_SHM_SIZE=128M
 ENV OPCACHE_MEM_SIZE=128
+ENV DB_TYPE=sqlite3
+ENV ADMIN_USER=admin
+ENV ADMIN_PASSWORD=password
 
 RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
  && echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
@@ -21,7 +24,7 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
       php7-exif php7-gmp \
       php7-apcu php7-memcached php7-redis \
       ffmpeg php7-pcntl \
-      wget unzip libsmbclient samba-client supervisor \
+      wget unzip libsmbclient samba-client supervisor su-exec \
       php7-opcache php7-pear php7-dev tar ${BUILD_DEPS} \
  && sed -i "$ s|\-n||g" /usr/bin/pecl && pecl install smbclient\
  && echo "extension=smbclient.so" > /etc/php7/conf.d/00_smbclient.ini \
@@ -48,6 +51,7 @@ COPY ./apcu.ini /etc/php7/conf.d/apcu.ini
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
 COPY ./supervisord.conf /etc/supervisor/supervisord.conf
+COPY ./occ /usr/local/bin/occ
 
 VOLUME /nextcloud
 VOLUME /data
