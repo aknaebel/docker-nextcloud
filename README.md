@@ -35,6 +35,7 @@ docker run --name nextcloud -d -p 9000:9000 \
 -e DB_USER=nextcloud \
 -e DB_PASSWORD=nextcloud_password \
 -e DB_HOST=mariadb
+-e TRUSTED_DOMAIN=nextcloud.example.com
 --restart=always aknaebel/nextcloud
 ```
 
@@ -73,6 +74,7 @@ services:
             - DB_USER=nextcloud \
             - DB_PASSWORD=nextcloud_password \
             - DB_HOST=mariadb
+            - TRUSTED_DOMAIN=nextcloud.example.com
         restart: always 
 ```
 
@@ -93,6 +95,7 @@ docker-compose up -d
 - DB_USER : username for database (default : none)
 - DB_PASSWORD : password for database user (default : none)
 - DB_HOST : database host (default : none)
+- TRUSTED_DOMAIN: first authorize trusted domain after installation (default: localhost)
 
 ### Features:
 

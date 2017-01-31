@@ -60,8 +60,12 @@ cat >> /nextcloud/config/autoconfig.php <<EOF;
 EOF
 
     echo "Starting automatic configuration..."
+    sleep 15
     (cd /nextcloud; php7 index.php)
     echo "Automatic configuration finished."
+
+    echo "Replace default trusted domain"
+    sed -i "s#0 => 'localhost',#0 => '${TRUSTED_DOMAIN:-localhost}',#" $CONFIGFILE
 else
     occ upgrade
     if [ \( $? -ne 0 \) -a \( $? -ne 3 \) ]; then
