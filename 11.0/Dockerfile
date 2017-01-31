@@ -13,7 +13,7 @@ ENV ADMIN_PASSWORD=password
 RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
  && echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
  && echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
- && BUILD_DEPS="gnupg tar build-base autoconf automake libtool samba-dev" \
+ && BUILD_DEPS="gnupg build-base autoconf automake libtool samba-dev" \
 
  && apk upgrade --update\
  && apk add ca-certificates openssl \
