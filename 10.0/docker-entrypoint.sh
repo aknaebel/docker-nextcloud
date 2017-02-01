@@ -67,6 +67,7 @@ EOF
     echo "Replace default trusted domain"
     sed -i "s#0 => 'localhost',#0 => '${TRUSTED_DOMAIN:-localhost}',#" $CONFIGFILE
 else
+    sleep 5
     occ upgrade
     if [ \( $? -ne 0 \) -a \( $? -ne 3 \) ]; then
         echo "Trying ownCloud upgrade again to work around ownCloud upgrade bug..."
