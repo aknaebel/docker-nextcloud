@@ -35,7 +35,7 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
 
  && addgroup -g 82 -S www-data \
  && adduser -u 82 -D -S -G www-data www-data \
- && echo "*/15  *  *  *  * php7 -f /var/www/nextcloud/cron.php" > /etc/crontabs/www-data \
+ && echo "*/15  *  *  *  * php7 -f /nextcloud/cron.php" > /etc/crontabs/www-data \
  && chmod 600 /etc/crontabs/www-data \
 
  && mkdir /nextcloud /apps2 /config /data \
