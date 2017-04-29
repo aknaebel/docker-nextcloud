@@ -29,7 +29,6 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
       php7-opcache php7-pear php7-dev tar ${BUILD_DEPS} \
  && sed -i "$ s|\-n||g" /usr/bin/pecl && pecl install smbclient apcu \
  && echo "extension=smbclient.so" > /etc/php7/conf.d/00_smbclient.ini \
- && echo "extension=apcu.so" > /etc/php7/conf.d/00_apcu.ini \
 
  && echo "date.timezone = 'UTC'" >> /etc/php7/php.ini \
  && echo "short_open_tag = 0" >> /etc/php7/php.ini \
