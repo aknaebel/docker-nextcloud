@@ -23,7 +23,7 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
       php7-ldap php7-ftp php7-imap \
       php7-exif php7-gmp \
       php7-memcached php7-redis \
-      ffmpeg php7-pcntl \
+      ffmpeg php7-pcntl php7-fileinfo \
       wget unzip libsmbclient samba-client supervisor su-exec \
       php7-opcache php7-pear php7-dev tar ${BUILD_DEPS} \
  && sed -i "$ s|\-n||g" /usr/bin/pecl && pecl install smbclient apcu \
