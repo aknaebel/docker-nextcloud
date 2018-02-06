@@ -1,0 +1,2 @@
+#!/bin/sh
+su-exec www-data:www-data php7 /nextcloud/occ $@
