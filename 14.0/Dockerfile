@@ -32,6 +32,7 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
 
  && echo "date.timezone = 'UTC'" >> /etc/php7/php.ini \
  && echo "short_open_tag = 0" >> /etc/php7/php.ini \
+ && sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php7/php.ini \
 
  && addgroup -g 82 -S www-data \
  && adduser -u 82 -D -S -G www-data www-data \
