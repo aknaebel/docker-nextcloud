@@ -14,7 +14,6 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
  && echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
  && echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
  && BUILD_DEPS="gnupg build-base autoconf automake libtool samba-dev pcre-dev" \
-
  && apk upgrade --update\
  && apk add ca-certificates openssl \
       php7-fpm php7 php7-ctype php7-dom php7-gd php7-iconv php7-json php7-xml php7-mbstring php7-posix php7-zip php7-zlib php7-xmlwriter php7-simplexml \
@@ -29,16 +28,13 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
       php7-opcache php7-pear php7-dev tar ${BUILD_DEPS} \
  && sed -i "$ s|\-n||g" /usr/bin/pecl && pecl install smbclient apcu \
  && echo "extension=smbclient.so" > /etc/php7/conf.d/00_smbclient.ini \
-
  && echo "date.timezone = 'UTC'" >> /etc/php7/php.ini \
  && echo "short_open_tag = 0" >> /etc/php7/php.ini \
  && sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php7/php.ini \
-
  && addgroup -g 82 -S www-data \
  && adduser -u 82 -D -S -G www-data www-data \
  && echo "*/15  *  *  *  * php7 -f /nextcloud/cron.php" > /etc/crontabs/www-data \
  && chmod 600 /etc/crontabs/www-data \
-
  && mkdir /nextcloud /apps2 /config /data \
  && NEXTCLOUD_TARBALL="nextcloud-${NEXTCLOUD_VERSION}.tar.bz2" \
  && cd /tmp && wget -q https://download.nextcloud.com/server/releases/${NEXTCLOUD_TARBALL} \
