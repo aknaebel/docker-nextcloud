@@ -26,7 +26,6 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
       ffmpeg php7-pcntl php7-fileinfo \
       wget unzip libsmbclient samba-client supervisor su-exec \
       php7-opcache php7-pear php7-dev tar ${BUILD_DEPS} \
- && mv /etc/php7/conf.d/igbinary.ini /etc/php7/conf.d/20_igbinary.ini \
  && sed -i "$ s|\-n||g" /usr/bin/pecl && pecl install smbclient apcu \
  && echo "extension=smbclient.so" > /etc/php7/conf.d/00_smbclient.ini \
  && echo "date.timezone = 'UTC'" >> /etc/php7/php.ini \
