@@ -13,7 +13,7 @@ ENV ADMIN_PASSWORD=password
 RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
  && echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
  && echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
- && BUILD_DEPS="gnupg build-base autoconf automake libtool samba-dev pcre-dev git" \
+ && BUILD_DEPS="gnupg build-base autoconf automake libtool samba-dev pcre-dev" \
  && apk upgrade --update\
  && apk add ca-certificates openssl \
       php7-fpm php7 php7-ctype php7-dom php7-gd php7-iconv php7-json php7-xml php7-mbstring php7-posix php7-zip php7-zlib php7-xmlwriter php7-simplexml \
@@ -36,9 +36,9 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
  && echo "*/15  *  *  *  * php7 -f /nextcloud/cron.php" > /etc/crontabs/www-data \
  && chmod 600 /etc/crontabs/www-data \
  && mkdir /nextcloud /apps2 /config /data \
- && git clone https://github.com/nextcloud/server.git /nextcloud \
- && cd /nextcloud && git fetch && git fetch --tags \
- && git checkout v${NEXTCLOUD_VERSION} \
+ && NEXTCLOUD_TARBALL="nextcloud-${NEXTCLOUD_VERSION}.tar.bz2" \
+ && cd /tmp && wget -q https://download.nextcloud.com/server/releases/${NEXTCLOUD_TARBALL} \
+ && tar xjf ${NEXTCLOUD_TARBALL} --strip 1 -C /nextcloud \
  && chown -R www-data:www-data /nextcloud \
  && apk del ${BUILD_DEPS} php7-pear php7-dev \
  && rm -rf /var/cache/apk/* /tmp/*
