@@ -1,7 +1,7 @@
 FROM alpine:edge
 MAINTAINER Alain Knaebel <alain.knaebel@aknaebel.fr>
 
-ENV NEXTCLOUD_VERSION=14.0.10
+ENV NEXTCLOUD_VERSION=16.0.0
 ENV UPLOAD_MAX_SIZE=10G
 ENV APC_SHM_SIZE=128M
 ENV OPCACHE_MEM_SIZE=128
@@ -21,7 +21,7 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
       php7-sqlite3 php7-pdo_sqlite php7-pdo_mysql php7-pgsql \
       php7-curl php7-bz2 php7-intl php7-mcrypt php7-openssl \
       php7-ldap php7-ftp php7-imap \
-      php7-exif php7-gmp \
+      php7-exif php7-gmp php7-pecl-imagick \
       php7-igbinary php7-memcached php7-redis \
       ffmpeg php7-pcntl php7-fileinfo \
       wget unzip libsmbclient samba-client supervisor su-exec \
