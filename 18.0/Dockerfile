@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3
 MAINTAINER Alain Knaebel <alain.knaebel@aknaebel.fr>
 
 ENV NEXTCLOUD_VERSION=18.0.3
