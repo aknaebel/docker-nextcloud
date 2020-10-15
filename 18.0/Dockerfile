@@ -9,11 +9,7 @@ ENV DB_TYPE=sqlite3
 ENV ADMIN_USER=admin
 ENV ADMIN_PASSWORD=password
 
-
-RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
- && echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
- && echo "http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
- && BUILD_DEPS="gnupg build-base autoconf automake libtool samba-dev pcre-dev" \
+RUN BUILD_DEPS="gnupg build-base autoconf automake libtool samba-dev pcre-dev" \
  && apk upgrade --update\
  && apk add ca-certificates openssl \
       php7-fpm php7 php7-ctype php7-dom php7-gd php7-iconv php7-json php7-xml php7-mbstring php7-posix php7-zip php7-zlib php7-xmlwriter php7-simplexml \
@@ -22,11 +18,13 @@ RUN echo "http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories \
       php7-curl php7-bz2 php7-intl php7-mcrypt php7-openssl \
       php7-ldap php7-ftp php7-imap \
       php7-exif php7-gmp php7-pecl-imagick \
-      php7-igbinary php7-memcached php7-redis \
+      php7-igbinary php7-memcached php7-redis php7-pecl-apcu \
       ffmpeg php7-pcntl php7-fileinfo \
       wget unzip libsmbclient samba-client supervisor su-exec \
       php7-opcache php7-pear php7-dev tar ${BUILD_DEPS} \
- && sed -i "$ s|\-n||g" /usr/bin/pecl && pecl install smbclient apcu \
+ && sed -i "$ s|\-n||g" /usr/bin/pecl \
+ && pecl channel-update pecl.php.net \
+ && pecl install smbclient \
  && echo "extension=smbclient.so" > /etc/php7/conf.d/00_smbclient.ini \
  && echo "date.timezone = 'UTC'" >> /etc/php7/php.ini \
  && echo "short_open_tag = 0" >> /etc/php7/php.ini \
