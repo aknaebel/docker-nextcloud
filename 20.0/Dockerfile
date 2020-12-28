@@ -1,5 +1,5 @@
 FROM alpine:3
-MAINTAINER Alain Knaebel <alain.knaebel@aknaebel.fr>
+LABEL maintainer="alain.knaebel@aknaebel.fr"
 
 ENV NEXTCLOUD_VERSION=20.0.4
 ENV UPLOAD_MAX_SIZE=10G
@@ -10,8 +10,7 @@ ENV ADMIN_USER=admin
 ENV ADMIN_PASSWORD=password
 
 RUN BUILD_DEPS="gnupg build-base autoconf automake libtool samba-dev pcre-dev" \
- && apk upgrade --update\
- && apk add ca-certificates openssl \
+ && apk --no-cache add ca-certificates openssl \
       php7-fpm php7 php7-ctype php7-dom php7-gd php7-iconv php7-json php7-xml php7-mbstring php7-posix php7-zip php7-zlib php7-xmlwriter php7-simplexml \
       php7-bcmath php7-calendar php7-dba php7-gettext php7-phar php7-shmop php7-soap php7-sockets php7-sysvmsg php7-sysvshm php7-sysvshm php7-wddx php7-xmlreader \
       php7-sqlite3 php7-pdo_sqlite php7-pdo_mysql php7-pgsql \
@@ -20,7 +19,7 @@ RUN BUILD_DEPS="gnupg build-base autoconf automake libtool samba-dev pcre-dev" \
       php7-exif php7-gmp php7-pecl-imagick \
       php7-igbinary php7-memcached php7-redis php7-pecl-apcu \
       ffmpeg php7-pcntl php7-fileinfo \
-      wget unzip libsmbclient samba-client supervisor su-exec \
+      wget unzip libsmbclient samba-client su-exec \
       php7-opcache php7-pear php7-dev tar ${BUILD_DEPS} \
  && sed -i "$ s|\-n||g" /usr/bin/pecl \
  && pecl channel-update pecl.php.net \
@@ -31,8 +30,6 @@ RUN BUILD_DEPS="gnupg build-base autoconf automake libtool samba-dev pcre-dev" \
  && sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php7/php.ini \
  && addgroup -g 82 -S www-data \
  && adduser -u 82 -D -S -G www-data www-data \
- && echo "*/15  *  *  *  * php7 -f /nextcloud/cron.php" > /etc/crontabs/www-data \
- && chmod 600 /etc/crontabs/www-data \
  && mkdir /nextcloud /apps2 /config /data \
  && NEXTCLOUD_TARBALL="nextcloud-${NEXTCLOUD_VERSION}.tar.bz2" \
  && cd /tmp && wget -q https://download.nextcloud.com/server/releases/${NEXTCLOUD_TARBALL} \
@@ -56,5 +53,6 @@ VOLUME /apps2
 
 EXPOSE 9000
 
+USER www-data
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+CMD ["php-fpm"]
