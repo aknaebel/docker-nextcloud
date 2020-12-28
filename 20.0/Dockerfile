@@ -43,7 +43,6 @@ COPY ./opcache.ini /etc/php7/conf.d/00_opcache.ini
 COPY ./apcu.ini /etc/php7/conf.d/apcu.ini
 
 COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-COPY ./supervisord.conf /etc/supervisor/supervisord.conf
 COPY ./occ /usr/local/bin/occ
 
 VOLUME /nextcloud
