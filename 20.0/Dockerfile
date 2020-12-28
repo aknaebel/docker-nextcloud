@@ -52,6 +52,5 @@ VOLUME /apps2
 
 EXPOSE 9000
 
-USER www-data
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["php-fpm7"]
