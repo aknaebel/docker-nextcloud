@@ -55,4 +55,4 @@ EXPOSE 9000
 
 USER www-data
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["php-fpm"]
+CMD ["php-fpm7"]
