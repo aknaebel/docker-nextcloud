@@ -6,10 +6,11 @@ This docker image provide a [nextcloud](https://nextcloud.com/) service based on
 
 ## Tags:
 
-- latest: Lastest stable version (20.0)
-- 20.0 : latest 19.0.x version (stable)
-- 19.0 : latest 19.0.x version (old stable)
-- 18.0 : latest 18.0.x version (old old stable)
+- latest: Lastest stable version (21.0)
+- 21.0 : latest 21.0.x version (stable)
+- 20.0 : latest 20.0.x version (old stable)
+- 19.0 : latest 19.0.x version (old old stable)
+- 18.0 : latest 18.0.x version (unsupported)
 - 17.0 : latest 17.0.x version (unsupported)
 - 16.0 : latest 16.0.x version (unsupported)
 - 15.0 : latest 15.0.x version (unsupported)
