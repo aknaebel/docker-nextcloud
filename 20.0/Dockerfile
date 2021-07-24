@@ -1,7 +1,7 @@
 FROM alpine:3
 LABEL maintainer="alain.knaebel@aknaebel.fr"
 
-ENV NEXTCLOUD_VERSION=20.0.8
+ENV NEXTCLOUD_VERSION=20.0.11
 ENV UPLOAD_MAX_SIZE=10G
 ENV APC_SHM_SIZE=128M
 ENV OPCACHE_MEM_SIZE=128
@@ -28,7 +28,6 @@ RUN BUILD_DEPS="gnupg build-base autoconf automake libtool samba-dev pcre-dev" \
  && echo "date.timezone = 'UTC'" >> /etc/php7/php.ini \
  && echo "short_open_tag = 0" >> /etc/php7/php.ini \
  && sed -i "s/memory_limit = 128M/memory_limit = 512M/" /etc/php7/php.ini \
- && addgroup -g 82 -S www-data \
  && adduser -u 82 -D -S -G www-data www-data \
  && mkdir /nextcloud /apps2 /config /data \
  && NEXTCLOUD_TARBALL="nextcloud-${NEXTCLOUD_VERSION}.tar.bz2" \
